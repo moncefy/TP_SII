@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TP - Metaheuristics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+
+<div class="bg-white w-full max-w-6xl rounded-xl shadow-lg p-8">
+
+    <h1 class="text-3xl font-bold mb-2">TP - Metaheuristics</h1>
+    <h2 class="text-lg font-semibold text-gray-700 mb-6">
+        Part 1 - Optimization Problem Initialization
+    </h2>
+
+    <!-- INPUTS -->
+    <div class="grid grid-cols-12 gap-4 items-end mb-6">
+
+        <div class="col-span-2">
+            <label class="block text-sm font-medium mb-1">Dimension (D)</label>
+            <input id="dimension" type="number" value="30"
+                   class="w-full rounded-md border px-3 py-2 bg-gray-100">
+        </div>
+
+        <div class="col-span-2">
+            <label class="block text-sm font-medium mb-1">Range (Min)</label>
+            <input id="minRange" type="number"
+                   class="w-full rounded-md border px-3 py-2 bg-gray-100">
+        </div>
+
+        <div class="col-span-2">
+            <label class="block text-sm font-medium mb-1">Range (Max)</label>
+            <input id="maxRange" type="number"
+                   class="w-full rounded-md border px-3 py-2 bg-gray-100">
+        </div>
+
+        <div class="col-span-3 col-start-10">
+            <button onclick="generateSolution()"
+                    class="w-full bg-gray-200 hover:bg-gray-300 py-2 px-4 rounded-md">
+                Generate solution
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Candidate + Fitness -->
+    <div class="grid grid-cols-12 gap-4 items-end mb-6">
+
+        <div class="col-span-9">
+            <label class="block text-sm font-medium mb-1">Candidate solution</label>
+            <input id="candidate" type="text"
+                   class="w-full rounded-md border px-3 py-2 bg-gray-100">
+        </div>
+
+        <div class="col-span-3">
+            <label class="block text-sm font-medium mb-1">Fitness</label>
+            <input id="fitness" type="text"
+                   class="w-full rounded-md border px-3 py-2 bg-gray-100" readonly>
+        </div>
+
+    </div>
+
+    <!-- FUNCTION -->
+    <div class="grid grid-cols-12 gap-4 items-center">
+
+        <div class="col-span-3">
+            <label class="block text-sm font-medium mb-1">Function</label>
+            <select id="functionSelect" onchange="updateFunctionInfo()"
+                    class="w-full rounded-md border px-3 py-2 bg-gray-100">
+                <option value="F1">F1 - Sphere</option>
+                <option value="F2">F2 - Schwefel 1.2</option>
+                <option value="F5">F5 - Rosenbrock</option>
+                <option value="F7">F7 - Quartic</option>
+                <option value="F8">F8 - Schwefel</option>
+                <option value="F9">F9 - Rastrigin</option>
+                <option value="F11">F11 - Griewank</option>
+            </select>
+        </div>
+
+        <div class="col-span-5 text-center text-lg font-medium"
+             id="functionDescription"></div>
+
+        <div class="col-span-3 col-start-10">
+            <button onclick="evaluateSolution()"
+                    class="w-full bg-gray-200 hover:bg-gray-300 py-2 px-4 rounded-md">
+                Evaluate solution
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const functionRanges = {
+    F1: [-100, 100],
+    F2: [-100, 100],
+    F5: [-30, 30],
+    F7: [-128, 128],
+    F8: [-500, 500],
+    F9: [-5.12, 5.12],
+    F11: [-600, 600]
+};
+
+const functionDescriptions = {
+    F1: "f(x) = Σ xi²",
+    F2: "f(x) = Σ (Σ xj)^2  (Schwefel 1.2)",
+    F5: "Rosenbrock",
+    F7: "Quartic + random",
+    F8: "Schwefel",
+    F9: "Rastrigin",
+    F11: "Griewank"
+};
+
+function updateFunctionInfo() {
+    const func = document.getElementById("functionSelect").value;
+    document.getElementById("minRange").value = functionRanges[func][0];
+    document.getElementById("maxRange").value = functionRanges[func][1];
+    document.getElementById("functionDescription").innerText =
+        functionDescriptions[func];
+}
+
+updateFunctionInfo();
+
+function generateSolution() {
+
+    const D = parseInt(document.getElementById("dimension").value);
+    const min = parseFloat(document.getElementById("minRange").value);
+    const max = parseFloat(document.getElementById("maxRange").value);
+
+    if (isNaN(D) || D <= 0) return alert("Invalid dimension");
+
+    let solution = Array.from({length: D}, () =>
+        (Math.random() * (max - min) + min).toFixed(4)
+    );
+
+    document.getElementById("candidate").value = solution.join(",");
+    document.getElementById("fitness").value = "";
+}
+
+function evaluateSolution() {
+
+    const func = document.getElementById("functionSelect").value;
+    const D_input = parseInt(document.getElementById("dimension").value);
+
+    const values = document.getElementById("candidate").value
+        .split(",")
+        .map(x => parseFloat(x.trim()))
+        .filter(x => !isNaN(x));
+
+    if (values.length !== D_input)
+        return alert("Dimension mismatch!");
+
+    let D = values.length;
+    let fitness = 0;
+
+    switch (func) {
+
+        case "F1":
+            fitness = values.reduce((sum, x) => sum + x * x, 0);
+            break;
+
+        case "F2": // Schwefel 1.2 (TP correct)
+            let cumulative = 0;
+            for (let i = 0; i < D; i++) {
+                cumulative += values[i];
+                fitness += cumulative * cumulative;
+            }
+            break;
+
+        case "F5":
+            for (let i = 0; i < D - 1; i++)
+                fitness += 100 * Math.pow(values[i+1] - values[i]**2, 2)
+                    + Math.pow(values[i] - 1, 2);
+            break;
+
+        case "F7":
+            for (let i = 0; i < D; i++)
+                fitness += (i + 1) * Math.pow(values[i], 4);
+            fitness += Math.random();
+            break;
+
+        case "F8":
+            for (let i = 0; i < D; i++)
+                fitness += -values[i] *
+                    Math.sin(Math.sqrt(Math.abs(values[i])));
+            break;
+
+        case "F9":
+            for (let i = 0; i < D; i++)
+                fitness += values[i]**2
+                    - 10 * Math.cos(2 * Math.PI * values[i]) + 10;
+            break;
+
+        case "F11":
+            let sumPart = 0, prodPart = 1;
+            for (let i = 0; i < D; i++) {
+                sumPart += values[i] * values[i];
+                prodPart *= Math.cos(values[i] / Math.sqrt(i + 1));
+            }
+            fitness = 1 + sumPart / 4000 - prodPart;
+            break;
+    }
+
+    document.getElementById("fitness").value =
+        Number.isFinite(fitness)
+            ? fitness.toFixed(6)
+            : "Overflow";
+}
+
+</script>
+
+</body>
+</html>
