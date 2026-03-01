@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+
+# Local generated helper artifacts
+META_H/tp2_extracted.txt
+
+# Local assignment PDFs kept outside git tracking
+META_H/TP n°1 (Optimization Problem).pdf
+META_H/TP N°2 - Optimization Problem Initialization (Part 2).pdf
