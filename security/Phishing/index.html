@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PayPal Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="login-card">
+      <div class="logo-wrap">
+        <img src="PayPal.svg.webp" alt="PayPal" class="logo-image" />
+      </div>
+
+      <h3>Log in to PayPal</h3>
+
+      <form id="loginForm" class="login-form" action="#" method="post">
+        <label for="email" class="sr-only">Email or mobile number</label>
+        <input id="email" name="email" type="text" placeholder="Email or mobile number" required />
+
+        <label for="password" class="sr-only">Password</label>
+        <input id="password" name="password" type="password" placeholder="Password" required />
+
+        <button type="submit" class="login-btn">Log In</button>
+      </form>
+
+      <p id="statusMessage" class="status-message" aria-live="polite"></p>
+
+      <a href="#" class="help-link">Having trouble logging in?</a>
+    </section>
+
+    <p class="education-note">This is for education, not real payments.</p>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
