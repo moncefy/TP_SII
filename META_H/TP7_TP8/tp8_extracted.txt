@@ -1,0 +1,22 @@
+
+--- PAGE 1 ---
+Année Universitaire : 2025/2026 Master 2 : SII Module : MÉTA Université des Sciences et de la Technologie Houari Boumediene Faculté d'Informatique Département d'Intelligence Artificielle et Sciences des Données TP N°8 Genetic Algorithm Part 2  
+I. KHENNAK 1 
+I. Genetic Algorithm: 1st variant Pseudo-code of Genetic Algorithm (GA)  
+Inputs 𝑻: max iteration, 𝑵: size of population, 𝒇: fitness function, 𝑹𝑪: crossover probability, 𝑹𝑴: mutation probability Generate a random population 𝑷 of 𝑵 solutions 𝒙(𝟏),𝒙(𝟐),…,𝒙(𝑵) where 𝒙(𝒊)=+𝒙𝟏(𝒊),𝒙𝟐(𝒊),…,𝒙𝑫(𝒊), and 𝒙𝟏(𝒊)∈{𝟎,𝟏} 𝒕←𝟎 # Number of iterations (generations)  
+Repeat Initialize a new population 𝑷𝒏𝒆𝒘←∅; For  𝒊← 𝟏 to 𝑵 DIV 𝟐 do # Selection Randomly select two solutions 𝒙(𝑷𝟏) and 𝒙(𝑷𝟐) from 𝑷 as the first and second parents; 𝑺←𝟎;   For  𝒋← 𝟏 to 𝑵 do 𝑺←𝑺+𝒇+𝒙(𝒊),;  End For; 𝑪←[];   For  𝒋← 𝟏 to 𝑵 do IF (𝒋=𝟏) THEN 𝑪[𝒋]←𝒇+𝒙(𝒋),/𝑺;  ELSE 𝑪[𝒋]←𝑪[𝒋−𝟏]+𝒇+𝒙(𝒋),/𝑺;             End IF; End For; Generate a random number 𝒓∈[𝟎,𝟏]; Select the first parent 𝒙(𝑷𝟏) where 𝑪[𝑷𝟏−𝟏]<𝒓<𝑪[𝑷𝟏];  Generate a random number 𝒓∈[𝟎,𝟏]; Select the first parent 𝒙(𝑷𝟐) where 𝑪[𝑷𝟐−𝟏]<𝒓<𝑪[𝑷𝟐];  # Crossover Generate a random number 𝒓∈[𝟎,𝟏]; … 𝒕←𝒕+𝟏 Until (𝒕	=	𝑻 ) or (𝒙∗ did not change during the last three iterations)  
+
+--- PAGE 2 ---
+Année Universitaire : 2025/2026 Master 2 : SII Module : MÉTA Université des Sciences et de la Technologie Houari Boumediene Faculté d'Informatique Département d'Intelligence Artificielle et Sciences des Données TP N°8 Genetic Algorithm Part 2  
+I. KHENNAK 2 
+II. Genetic Algorithm: 2nd variant Pseudo-code of Genetic Algorithm (GA)  
+Inputs 𝑻: max iteration, 𝑵: size of population, 𝒇: fitness function, 𝑹𝑪: crossover probability, 𝑹𝑴: mutation probability  Generate a random population 𝑷 of 𝑵 solutions 𝒙(𝟏),𝒙(𝟐),…,𝒙(𝑵) where 𝒙(𝒊)=+𝒙𝟏(𝒊),𝒙𝟐(𝒊),…,𝒙𝑫(𝒊), and 𝒙𝟏(𝒊)∈{𝟎,𝟏} 𝒕←𝟎 # Number of iterations (generations)  
+Repeat … # Crossover Generate a random number 𝒓∈[𝟎,𝟏]; IF (𝒓<𝑹𝒄) THEN Choose a random crossover point 𝒌; 𝒙(𝑪𝟏)←𝒙(𝑷𝟏)[𝟎:𝒌]+𝒙(𝑷𝟐)[𝒌:];     𝒙(𝑪𝟐)←𝒙(𝑷𝟐)[𝟎:𝒌]+𝒙(𝑷𝟏)[𝒌:];  Choose random crossover points 𝒌𝟏 and 𝒌𝟐; 𝒙(𝑪𝟏)←𝒙(𝑷𝟏)[𝟎:𝒌𝟏]+𝒙(𝑷𝟐)[𝒌𝟏:𝒌𝟐]+𝒙(𝑷𝟏)[𝒌𝟐:];     𝒙(𝑪𝟐)←𝒙(𝑷𝟐)[𝟎:𝒌𝟏]+𝒙(𝑷𝟏)[𝒌𝟏:𝒌𝟐]+𝒙(𝑷𝟐)[𝒌𝟐:];  ELSE 𝒙(𝑪𝟏)←𝒙(𝑷𝟏);      𝒙(𝑪𝟐)←𝒙(𝑷𝟐);  End For; … 𝒕←𝒕+𝟏 Until (𝒕	=	𝑻 ) or (𝒙∗ did not change during the last three iterations)   
+
+--- PAGE 3 ---
+Année Universitaire : 2025/2026 Master 2 : SII Module : MÉTA Université des Sciences et de la Technologie Houari Boumediene Faculté d'Informatique Département d'Intelligence Artificielle et Sciences des Données TP N°8 Genetic Algorithm Part 2  
+I. KHENNAK 3 
+III. Genetic Algorithm: 3rd variant Pseudo-code of Genetic Algorithm (GA)  
+Inputs 𝑻: max iteration, 𝑵: size of population, 𝒇: fitness function, 𝑹𝑪: crossover probability, 𝑹𝑴: mutation probability  Generate a random population 𝑷 of 𝑵 solutions 𝒙(𝟏),𝒙(𝟐),…,𝒙(𝑵) where 𝒙(𝒊)=+𝒙𝟏(𝒊),𝒙𝟐(𝒊),…,𝒙𝑫(𝒊), and 𝒙𝟏(𝒊)∈{𝟎,𝟏} 𝒕←𝟎 # Number of iterations (generations)  
+Repeat … IF (𝒓<𝑹𝑴)     THEN     𝑪𝟐[𝒋]←𝟏−𝑪𝟐[𝒋];     End IF; End For;  Add 𝑪𝟏 and 𝑪𝟐 to 𝑷𝒏𝒆𝒘;  End For; #Replacement 𝑷←𝑷𝒏𝒆𝒘; Initialize 𝑷 with the 𝑵 Best solutions from the union of 𝑷 and 𝑷𝒏𝒆𝒘; 
+Evaluate the population 𝑷 and update the best solution; 𝒕←𝒕+𝟏 Until (𝒕	=	𝑻 ) or (𝒙∗ did not change during the last three iterations)   

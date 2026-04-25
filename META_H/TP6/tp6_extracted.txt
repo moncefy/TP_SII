@@ -1,0 +1,12 @@
+
+--- PAGE 1 ---
+Année Universitaire : 2025/2026 Master 2 : SII Module : MÉTA Université des Sciences et de la Technologie Houari Boumediene Faculté d'Informatique Département d'Intelligence Artificielle et Sciences des Données TP N°6 Feature Selection with PSO Part 2  
+I. KHENNAK 1 
+Feature Selection with PSO Application of PSO During the implementation of PSO for feature selection, if an element 𝒙𝒊 of a solution 𝒙 is greater than 0.5, then the corresponding feature is selected and used by KNN:   
+  
+
+
+--- PAGE 2 ---
+Année Universitaire : 2025/2026 Master 2 : SII Module : MÉTA Université des Sciences et de la Technologie Houari Boumediene Faculté d'Informatique Département d'Intelligence Artificielle et Sciences des Données TP N°6 Feature Selection with PSO Part 2  
+I. KHENNAK 2 
+ Results: 
